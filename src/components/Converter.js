@@ -39,21 +39,26 @@ class Converter extends Component {
   }
 
   handleVolumeUnitChanged(value) {
-    let newCoefficient = (this.state.massUnit.coefficientToGram / value.coefficientToLiter) * 0.001;
+    let newCoefficient = this.computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, value.coefficientToLiter, 1);
     this.setState({
       volumeUnit: value,
-      massToVolumeCoefficient:newCoefficient
-      //TODO : recompute mass
+      massToVolumeCoefficient:newCoefficient,
+      massValue: convertValue(this.state.volumeValue, 'volume', newCoefficient)
     });
   }
 
   handleMassUnitChanged(value) {
-    let newCoefficient = (value.coefficientToGram / this.state.volumeUnit.coefficientToLiter) * 0.001;
+    let newCoefficient = this.computeMassToVolumeCoefficient(value.coefficientToGram, this.state.volumeUnit.coefficientToLiter, 1);
     this.setState({
       massUnit: value,
-      massToVolumeCoefficient:newCoefficient
-      //TODO : recompute volume
+      massToVolumeCoefficient:newCoefficient,
+      volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
     });
+  }
+
+  computeMassToVolumeCoefficient(coefficientToGram, coefficientToLiter, fluidCoefficient) {
+    //TODO: take fluid into account
+    return (coefficientToGram / coefficientToLiter) * 0.001;
   }
 
   render() {
