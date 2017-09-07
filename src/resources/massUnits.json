@@ -2,15 +2,15 @@
     "units":
     [
         {
-            "name":"miligram",
-            "symbol":"mg",
-            "coefficientToGram":0.001 },
-        {
-            "name":"gram",
+            "name":"Gram",
             "symbol":"g",
             "coefficientToGram":1 },
         {
-             "name":"kilogram",
+            "name":"Miligram",
+            "symbol":"mg",
+            "coefficientToGram":0.001 },
+        {
+             "name":"Kilogram",
             "symbol":"kg",
             "coefficientToGram":1000 }
     ]

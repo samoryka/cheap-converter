@@ -2,16 +2,16 @@
     "units":
     [
         {
-            "name": "mililiter",
+            "name": "Liter",
+            "symbol":"l",
+            "coefficientToLiter":1 },
+        {
+            "name": "Mililiter",
             "symbol":"ml",
             "coefficientToLiter":0.001 },
         {
-            "name": "centiliter",
+            "name": "Centiliter",
             "symbol":"cl",
-            "coefficientToLiter":0.01 },
-        {
-            "name": "liter",
-            "symbol":"l",
-            "coefficientToLiter":1 }
+            "coefficientToLiter":0.01 }
     ]
 }
