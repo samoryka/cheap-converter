@@ -1,24 +1,55 @@
 import React, { Component } from 'react';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 class Picker extends Component {
-    render() {
-      return (
-        <div className="Picker">
-          <label htmlFor={this.props.valueType}>{this.props.valueType}</label>
-          <input  
-            id = {this.props.valueType}
-            type = "number"
-            min = "0"
-            value = {this.props.value}
-            onInput={evt => this.updateInputValue(evt)}
-          />
-        </div>
-      );
-    }  
-  
-    updateInputValue(evt) {
-      this.props.onValueChange(evt.target.value);
+
+  constructor(props) {
+    super(props)
+    // We convert our units to an array usable by the unit selector
+    let units = props.units;
+
+    var selectorOptions = []
+    for(var i in units) {
+      let unit = units[i];
+      selectorOptions.push({
+        value:unit,
+        label:unit.name + '(' + unit.symbol + ')'
+      });
     }
+
+    this.state = {
+      unitOptions: selectorOptions
+    };
   }
+
+  render() {
+    return (
+      <div className="Picker">
+        <label htmlFor={this.props.valueType}>{this.props.valueType}</label>
+        <input  
+          id = {this.props.valueType}
+          type = "number"
+          min = {0}
+          value = {this.props.value}
+          onInput={evt => this.updateInputValue(evt)} />
+        <Select 
+          name="unit"
+          value = {this.props.unit}
+          options = {this.state.unitOptions}
+          onChange = {selectedValue => this.changeUnit(selectedValue)}
+          clearable = {false} />
+      </div>
+    );
+  }  
+
+  updateInputValue(evt) {
+    this.props.onValueChange(evt.target.value);
+  }
+
+  changeUnit(selectedValue) {
+    this.props.onUnitChange(selectedValue.value);
+  }
+}
 
   export default Picker;
