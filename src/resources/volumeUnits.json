@@ -1,0 +1,17 @@
+{
+    "units":
+    [
+        {
+            "name": "mililiter",
+            "symbol":"ml",
+            "coefficientToLiter":0.001 },
+        {
+            "name": "centiliter",
+            "symbol":"cl",
+            "coefficientToLiter":0.01 },
+        {
+            "name": "liter",
+            "symbol":"l",
+            "coefficientToLiter":1 }
+    ]
+}

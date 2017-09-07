@@ -1,0 +1,20 @@
+{
+    "fluids":
+    [
+        {
+            "name": "butter",
+            "gramToLiterCoefficient":0.00116 },
+        {
+            "name": "flour",
+            "gramToLiterCoefficient":0.00182 },
+        {
+            "name": "milk",
+            "gramToLiterCoefficient":0.00097 },
+        {
+            "name": "water",
+            "gramToLiterCoefficient":0.001 },
+        {
+            "name": "sugar",
+            "gramToLiterCoefficient":0.00112 }
+    ]
+}
