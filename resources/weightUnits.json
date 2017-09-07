@@ -1,0 +1,17 @@
+{
+    "milligram": {
+        "name":"miligram",
+        "symbol":"mg",
+        "coefficientToGram":0.001
+    },
+    "gram": {
+        "name":"gram",
+        "symbol":"g",
+        "coefficientToGram":1
+    },
+    "kilogram": {
+        "name":"kilogram",
+        "symbol":"kg",
+        "coefficientToGram":1000
+    }
+}
