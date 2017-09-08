@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-class Picker extends Component {
+class UnitPicker extends Component {
 
   constructor(props) {
     super(props)
@@ -25,7 +25,7 @@ class Picker extends Component {
 
   render() {
     return (
-      <div className="Picker">
+      <div className="UnitPicker">
         <label htmlFor={this.props.valueType}>{this.props.valueType}</label>
         <input  
           id = {this.props.valueType}
@@ -52,4 +52,4 @@ class Picker extends Component {
   }
 }
 
-  export default Picker;
+  export default UnitPicker;

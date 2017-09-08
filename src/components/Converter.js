@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Picker from './Picker';
+import UnitPicker from './UnitPicker';
 
 class Converter extends Component {
   constructor() {
@@ -64,7 +64,7 @@ class Converter extends Component {
   render() {
     return (
       <div className = "Converter">
-        <Picker
+        <UnitPicker
         valueType = 'mass'
         value = {this.state.massValue}
         unit = {this.state.massUnit}
@@ -72,7 +72,7 @@ class Converter extends Component {
         onValueChange = {value => this.handleMassChanged(value)}
         onUnitChange = {value => this.handleMassUnitChanged(value)}/>
 
-        <Picker
+        <UnitPicker
         valueType = 'volume'
         value = {this.state.volumeValue}
         unit = {this.state.volumeUnit}
