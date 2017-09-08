@@ -27,7 +27,6 @@ class FluidPicker extends Component {
     render() {
         return (
             <div className="FluidPicker">
-            <label htmlFor="fluidPicker">fluid</label>
             <Select 
                 id = "fluidPicker"
                 name="Fluid"

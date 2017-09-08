@@ -27,13 +27,16 @@ class UnitPicker extends Component {
   render() {
     return (
       <div className="UnitPicker">
-        <label htmlFor={this.props.valueType}>{this.props.valueType}</label>
+        <label htmlFor={this.props.valueType}>{this.props.valueType.toUpperCase()}</label>
         <input  
           id = {this.props.valueType}
           type = "number"
           min = {0}
           value = {this.props.value}
           onInput={evt => this.updateInputValue(evt)} />
+          <span>
+                {this.state.selectedUnit.value.symbol}
+          </span>
         <Select 
           name="unit"
           value = {this.state.selectedUnit}
