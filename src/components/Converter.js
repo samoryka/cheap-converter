@@ -23,11 +23,10 @@ class Converter extends Component {
       volumeValue: convertValue(this.state.massValue, 'mass', this.state.massToVolumeCoefficient),
       massUnit: this.state.massUnits[0],
       volumeUnit: this.state.volumeUnits[0],
-      fluid: this.state.fluids[0]
-    });
-
-    this.setState({
-      massToVolumeCoefficient: computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, this.state.fluid.gramToLiterCoefficient)
+      fluid: this.state.fluids[0],
+      massToVolumeCoefficient: computeMassToVolumeCoefficient(this.state.massUnits[0].coefficientToGram,
+        this.state.volumeUnits[0].coefficientToLiter,
+        this.state.fluids[0].gramToLiterCoefficient)
     });
   }
 
@@ -67,6 +66,7 @@ class Converter extends Component {
     let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, value.gramToLiterCoefficient);
     this.setState({
       fluid: value,
+      massToVolumeCoefficient: newCoefficient,
       volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
     });
   }
@@ -107,11 +107,11 @@ function convertValue(value, valueType, massToVolumeCoefficient) {
     {
       switch(valueType){
         case 'mass':
-          return value * massToVolumeCoefficient;
+          return +(value * massToVolumeCoefficient).toFixed(2);
         case 'volume':
-          return value * (1/massToVolumeCoefficient);
+          return +(value * (1/massToVolumeCoefficient)).toFixed(2);
         default:
-          return value * massToVolumeCoefficient;
+          return +(value * massToVolumeCoefficient).toFixed(2);
       }
     }
   else
