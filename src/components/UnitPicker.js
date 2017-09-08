@@ -19,7 +19,8 @@ class UnitPicker extends Component {
     }
 
     this.state = {
-      unitOptions: selectorOptions
+      unitOptions: selectorOptions,
+      selectedUnit: selectorOptions[0]
     };
   }
 
@@ -35,7 +36,7 @@ class UnitPicker extends Component {
           onInput={evt => this.updateInputValue(evt)} />
         <Select 
           name="unit"
-          value = {this.props.unit}
+          value = {this.state.selectedUnit}
           options = {this.state.unitOptions}
           onChange = {selectedValue => this.changeUnit(selectedValue)}
           clearable = {false} />
@@ -49,6 +50,9 @@ class UnitPicker extends Component {
 
   changeUnit(selectedValue) {
     this.props.onUnitChange(selectedValue.value);
+    this.setState({
+      selectedUnit:selectedValue
+  });
   }
 }
 

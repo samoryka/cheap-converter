@@ -19,7 +19,8 @@ class FluidPicker extends Component {
         }
 
         this.state = {
-            fluidOptions: selectorOptions
+            fluidOptions: selectorOptions,
+            selectedFluid: selectorOptions[0]
         };
     }
 
@@ -30,7 +31,7 @@ class FluidPicker extends Component {
             <Select 
                 id = "fluidPicker"
                 name="Fluid"
-                value = {this.props.fluid}
+                value = {this.state.selectedFluid}
                 options = {this.state.fluidOptions}
                 onChange = {selectedValue => this.changeFluid(selectedValue)}
                 clearable = {false} />
@@ -40,6 +41,9 @@ class FluidPicker extends Component {
 
     changeFluid(selectedValue) {
     this.props.onFluidChange(selectedValue.value);
+    this.setState({
+        selectedFluid:selectedValue
+    });
     }
 }
 
