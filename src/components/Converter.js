@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import UnitPicker from './UnitPicker';
+import FluidPicker from './FluidPicker';
 
 class Converter extends Component {
   constructor() {
     super();
     this.state = {
-      fluid: 'water',
       massValue: 1,
       volumeValue: 0,
       massUnits: require('../resources/massUnits.json').units,
       massUnit:'g',
       volumeUnits: require('../resources/volumeUnits.json').units,
       volumeUnit: 'L',
+      fluids: require('../resources/fluids.json').fluids,
+      fluid: 'water',
       massToVolumeCoefficient:0.001,
     }
   }
@@ -19,8 +21,13 @@ class Converter extends Component {
   componentWillMount() {
     this.setState({
       volumeValue: convertValue(this.state.massValue, 'mass', this.state.massToVolumeCoefficient),
-      massUnit:this.state.massUnits[0],
-      volumeUnit:this.state.volumeUnits[0]
+      massUnit: this.state.massUnits[0],
+      volumeUnit: this.state.volumeUnits[0],
+      fluid: this.state.fluids[0]
+    });
+
+    this.setState({
+      massToVolumeCoefficient: computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, this.state.fluid.gramToLiterCoefficient)
     });
   }
 
@@ -39,7 +46,7 @@ class Converter extends Component {
   }
 
   handleVolumeUnitChanged(value) {
-    let newCoefficient = this.computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, value.coefficientToLiter, 1);
+    let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, value.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
     this.setState({
       volumeUnit: value,
       massToVolumeCoefficient:newCoefficient,
@@ -48,7 +55,7 @@ class Converter extends Component {
   }
 
   handleMassUnitChanged(value) {
-    let newCoefficient = this.computeMassToVolumeCoefficient(value.coefficientToGram, this.state.volumeUnit.coefficientToLiter, 1);
+    let newCoefficient = computeMassToVolumeCoefficient(value.coefficientToGram, this.state.volumeUnit.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
     this.setState({
       massUnit: value,
       massToVolumeCoefficient:newCoefficient,
@@ -56,14 +63,21 @@ class Converter extends Component {
     });
   }
 
-  computeMassToVolumeCoefficient(coefficientToGram, coefficientToLiter, fluidCoefficient) {
-    //TODO: take fluid into account
-    return (coefficientToGram / coefficientToLiter) * 0.001;
+  handleFluidChanged(value) {
+    let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, value.gramToLiterCoefficient);
+    this.setState({
+      fluid: value,
+      volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
+    });
   }
 
   render() {
     return (
       <div className = "Converter">
+        <FluidPicker
+        fluids = {this.state.fluids}
+        onFluidChange = {value => this.handleFluidChanged(value)}
+        />
         <UnitPicker
         valueType = 'mass'
         value = {this.state.massValue}
@@ -82,6 +96,10 @@ class Converter extends Component {
       </div>
     );
   }
+}
+
+function computeMassToVolumeCoefficient(coefficientToGram, coefficientToLiter, fluidCoefficient) {
+  return (coefficientToGram / coefficientToLiter) * fluidCoefficient;
 }
 
 function convertValue(value, valueType, massToVolumeCoefficient) {
