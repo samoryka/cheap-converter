@@ -10,37 +10,33 @@ class FluidPicker extends Component {
     let fluids = props.fluids;
 
     var selectorOptions = []
-    for(var i in fluids) {
-        let fluid = fluids[i];
-        selectorOptions.push({
-        value:fluid,
-        label:fluid.name
-        });
-    }
+        for(var i in fluids) {
+            let fluid = fluids[i];
+            selectorOptions.push({
+            value:fluid,
+            label:fluid.name
+            });
+        }
 
-    this.state = {
-        fluidOptions: selectorOptions
-    };
+        this.state = {
+            fluidOptions: selectorOptions
+        };
     }
 
     render() {
-    return (
-        <div className="FluidPicker">
-        <label htmlFor="fluidPicker">fluid</label>
-        <Select 
-            id = "fluidPicker"
-            name="Fluid"
-            value = {this.props.fluid}
-            options = {this.state.fluidOptions}
-            onChange = {selectedValue => this.changeFluid(selectedValue)}
-            clearable = {false} />
-        </div>
-    );
+        return (
+            <div className="FluidPicker">
+            <label htmlFor="fluidPicker">fluid</label>
+            <Select 
+                id = "fluidPicker"
+                name="Fluid"
+                value = {this.props.fluid}
+                options = {this.state.fluidOptions}
+                onChange = {selectedValue => this.changeFluid(selectedValue)}
+                clearable = {false} />
+            </div>
+        );
     }  
-
-    updateInputValue(evt) {
-    this.props.onValueChange(evt.target.value);
-    }
 
     changeFluid(selectedValue) {
     this.props.onFluidChange(selectedValue.value);
