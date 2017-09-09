@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+const themeColors = require('../resources/themeColors.json');
+
+const UnitPickerContainer = styled.div`
+width:50%;
+float:left;
+`;
 
 class UnitPicker extends Component {
 
@@ -26,7 +34,7 @@ class UnitPicker extends Component {
 
   render() {
     return (
-      <div className="UnitPicker">
+      <UnitPickerContainer>
         <label htmlFor={this.props.valueType}>{this.props.valueType.toUpperCase()}</label>
         <input  
           id = {this.props.valueType}
@@ -43,7 +51,7 @@ class UnitPicker extends Component {
           options = {this.state.unitOptions}
           onChange = {selectedValue => this.changeUnit(selectedValue)}
           clearable = {false} />
-      </div>
+      </UnitPickerContainer>
     );
   }  
 

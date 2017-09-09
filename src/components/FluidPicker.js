@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+const themeColors = require('../resources/themeColors.json');
+
+const FluidPickerContainer = styled.div`
+@media screen and (max-width: 600px){
+    margin: 0 1em 0 1em;
+  }
+`;
+
 
 class FluidPicker extends Component {
 
@@ -26,15 +36,15 @@ class FluidPicker extends Component {
 
     render() {
         return (
-            <div className="FluidPicker">
-            <Select 
-                id = "fluidPicker"
-                name="Fluid"
-                value = {this.state.selectedFluid}
-                options = {this.state.fluidOptions}
-                onChange = {selectedValue => this.changeFluid(selectedValue)}
-                clearable = {false} />
-            </div>
+            <FluidPickerContainer>
+                <Select 
+                    id = "fluidPicker"
+                    name="Fluid"
+                    value = {this.state.selectedFluid}
+                    options = {this.state.fluidOptions}
+                    onChange = {selectedValue => this.changeFluid(selectedValue)}
+                    clearable = {false} />
+            </FluidPickerContainer>
         );
     }  
 

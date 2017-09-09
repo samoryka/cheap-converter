@@ -1,6 +1,40 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
+
+const themeColors = require('../resources/themeColors.json');
+
+const Background = styled.div`
+width: 100%;
+height: 100%;
+background: ${themeColors.primaryLight}
+`;
+
+const Header = styled.header`
+background: ${themeColors.primaryLight};
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+`;
+
+const PlaceHolderHeaderText = styled.h1`
+margin: auto;
+padding: 0.5em 0 0.5em 0;
+text-align: center;
+color: white;
+`;
+
+const ConverterContainer = styled.div`
+@media screen and (min-width: 600px), handheld {
+    width: 50%;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+@media screen and (max-width: 600px){
+    width: 100%;
+    margin: 1em 0 1em 0;
+  }
+`;
 
 class Converter extends Component {
   constructor() {
@@ -74,27 +108,33 @@ class Converter extends Component {
 
   render() {
     return (
-      <div className = "Converter">
-        <FluidPicker
-        fluids = {this.state.fluids}
-        onFluidChange = {value => this.handleFluidChanged(value)}
-        />
-        <UnitPicker
-        valueType = 'mass'
-        value = {this.state.massValue}
-        unit = {this.state.massUnit}
-        units = {this.state.massUnits}
-        onValueChange = {value => this.handleMassChanged(value)}
-        onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+      <Background>
+        <Header>
+          <PlaceHolderHeaderText>🙋🏼️</PlaceHolderHeaderText>
+        </Header>
 
-        <UnitPicker
-        valueType = 'volume'
-        value = {this.state.volumeValue}
-        unit = {this.state.volumeUnit}
-        units = {this.state.volumeUnits}
-        onValueChange = {value => this.handleVolumeChanged(value)}
-        onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-      </div>
+        <ConverterContainer>
+          <FluidPicker
+          fluids = {this.state.fluids}
+          onFluidChange = {value => this.handleFluidChanged(value)} />
+
+          <UnitPicker
+          valueType = 'mass'
+          value = {this.state.massValue}
+          unit = {this.state.massUnit}
+          units = {this.state.massUnits}
+          onValueChange = {value => this.handleMassChanged(value)}
+          onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+          
+          <UnitPicker
+          valueType = 'volume'
+          value = {this.state.volumeValue}
+          unit = {this.state.volumeUnit}
+          units = {this.state.volumeUnits}
+          onValueChange = {value => this.handleVolumeChanged(value)}
+          onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+        </ConverterContainer>
+      </Background>
     );
   }
 }
