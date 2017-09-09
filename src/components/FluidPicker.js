@@ -3,12 +3,8 @@ import styled from 'styled-components';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-const themeColors = require('../resources/themeColors.json');
-
 const FluidPickerContainer = styled.div`
-@media screen and (max-width: 600px){
-    margin: 0 1em 0 1em;
-  }
+    margin: 1em 0.5em 1em 0.5em;
 `;
 
 

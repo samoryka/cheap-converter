@@ -3,11 +3,60 @@ import styled from 'styled-components';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-const themeColors = require('../resources/themeColors.json');
-
 const UnitPickerContainer = styled.div`
-width:50%;
-float:left;
+flex: 1 1 auto;
+margin:0.5em;
+box-sizing: border-box;
+max-width: 40%;
+`;
+
+const Card = styled.div`
+border-radius: 5px;
+border-color: ${props => props.theme.primaryLight};
+border-style: solid;
+border-width: thin;
+
+display:flex;
+flex-flow: column wrap;
+justify-content: center;
+align-items: flex-end;
+`;
+
+const ValueLabel = styled.h1`
+background: ${props => props.theme.primaryLight};
+text-align: center;
+font-size: small;
+align-self: stretch;
+margin:0;
+padding: 0.5em 1em 0.5em 1em;
+flex: 0 1 auto;
+`;
+
+const ValueContainer = styled.div`
+display:flex;
+flex-flow: row;
+flex: 0 1 auto;
+justify-content: flex-start;
+align-items: center;
+`;
+
+const ValueInput = styled.input`
+align-self: flex-start;
+width: 60%;
+padding: 0.5em 0.1em 0.5em 0.5em;
+font-size: xx-large;
+background: transparent;
+text-align: right;
+border:none;
+outline-style:none;
+`;
+
+const ValueUnit = styled.span`
+font-size: x-large;
+`;
+
+const StyledSelect = styled(Select)`
+align-self: stretch;
 `;
 
 class UnitPicker extends Component {
@@ -35,22 +84,24 @@ class UnitPicker extends Component {
   render() {
     return (
       <UnitPickerContainer>
-        <label htmlFor={this.props.valueType}>{this.props.valueType.toUpperCase()}</label>
-        <input  
-          id = {this.props.valueType}
-          type = "number"
-          min = {0}
-          value = {this.props.value}
-          onInput={evt => this.updateInputValue(evt)} />
-          <span>
-                {this.state.selectedUnit.value.symbol}
-          </span>
-        <Select 
-          name="unit"
-          value = {this.state.selectedUnit}
-          options = {this.state.unitOptions}
-          onChange = {selectedValue => this.changeUnit(selectedValue)}
-          clearable = {false} />
+        <Card>
+          <ValueLabel htmlFor={this.props.valueType}>{this.props.valueType.toUpperCase()}</ValueLabel>
+          <ValueContainer>
+            <ValueInput  
+              id = {this.props.valueType}
+              type = "number"
+              min = {0}
+              value = {this.props.value}
+              onInput={evt => this.updateInputValue(evt)} />
+              <ValueUnit> {this.state.selectedUnit.value.symbol} </ValueUnit>
+          </ValueContainer>
+          <StyledSelect 
+            name="unit"
+            value = {this.state.selectedUnit}
+            options = {this.state.unitOptions}
+            onChange = {selectedValue => this.changeUnit(selectedValue)}
+            clearable = {false} />
+          </Card>
       </UnitPickerContainer>
     );
   }  

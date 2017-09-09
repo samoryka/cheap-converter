@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
-const themeColors = require('../resources/themeColors.json');
+const theme = require('../resources/themes/pink.json');
 
 const Background = styled.div`
 width: 100%;
 height: 100%;
-background: ${themeColors.primaryLight}
+background: ${props => props.theme.background};
 `;
 
 const Header = styled.header`
-background: ${themeColors.primaryLight};
+background: ${props => props.theme.primaryLight};
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
@@ -29,12 +29,12 @@ const ConverterContainer = styled.div`
     margin: auto;
     padding: 1em 0 1em 0;
     box-sizing: border-box;
-  }
+}
 @media screen and (max-width: 600px){
     width: 100%;
     padding: 1em;
     box-sizing: border-box;
-  }
+}
 `;
 const UnitPickersAligner = styled.div`
 margin: 1em 0 1em 0;
@@ -45,21 +45,17 @@ justify-content: space-between;
 align-items: center;
 `;
 
-const PlaceholderConverterContainerInterstice = styled.h2`
-color:white;
-`;
-
 class Converter extends Component {
   constructor() {
     super();
     this.state = {
       massValue: 1,
       volumeValue: 0,
-      massUnits: require('../resources/massUnits.json').units,
+      massUnits: require('../resources/data/massUnits.json').units,
       massUnit:'g',
-      volumeUnits: require('../resources/volumeUnits.json').units,
+      volumeUnits: require('../resources/data/volumeUnits.json').units,
       volumeUnit: 'L',
-      fluids: require('../resources/fluids.json').fluids,
+      fluids: require('../resources/data/fluids.json').fluids,
       fluid: 'water',
       massToVolumeCoefficient:0.001,
     }
@@ -121,35 +117,37 @@ class Converter extends Component {
 
   render() {
     return (
-      <Background>
-        <Header>
-          <PlaceholderHeaderText>🙋🏼️</PlaceholderHeaderText>
-        </Header>
-        
-        <ConverterContainer>
-          <FluidPicker
-          fluids = {this.state.fluids}
-          onFluidChange = {value => this.handleFluidChanged(value)} />
+      <ThemeProvider theme={theme}>
+        <Background>
+          <Header>
+            <PlaceholderHeaderText>🙋🏼️</PlaceholderHeaderText>
+          </Header>
+          
+          <ConverterContainer>
+            <FluidPicker
+            fluids = {this.state.fluids}
+            onFluidChange = {value => this.handleFluidChanged(value)} />
 
-          <UnitPickersAligner>
-            <UnitPicker
-            valueType = 'mass'
-            value = {this.state.massValue}
-            unit = {this.state.massUnit}
-            units = {this.state.massUnits}
-            onValueChange = {value => this.handleMassChanged(value)}
-            onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-
-            <UnitPicker
-            valueType = 'volume'
-            value = {this.state.volumeValue}
-            unit = {this.state.volumeUnit}
-            units = {this.state.volumeUnits}
-            onValueChange = {value => this.handleVolumeChanged(value)}
-            onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-          </UnitPickersAligner>
-        </ConverterContainer>
-      </Background>
+            <UnitPickersAligner>
+              <UnitPicker
+              valueType = 'mass'
+              value = {this.state.massValue}
+              unit = {this.state.massUnit}
+              units = {this.state.massUnits}
+              onValueChange = {value => this.handleMassChanged(value)}
+              onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+              ≡
+              <UnitPicker
+              valueType = 'volume'
+              value = {this.state.volumeValue}
+              unit = {this.state.volumeUnit}
+              units = {this.state.volumeUnits}
+              onValueChange = {value => this.handleVolumeChanged(value)}
+              onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+            </UnitPickersAligner>
+          </ConverterContainer>
+        </Background>
+      </ThemeProvider>
     );
   }
 }
