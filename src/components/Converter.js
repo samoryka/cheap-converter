@@ -19,14 +19,15 @@ class Converter extends Component {
   }
 
   componentWillMount() {
+    let computedMassToValueCoefficient = computeMassToVolumeCoefficient(this.state.massUnits[0].coefficientToGram,
+      this.state.volumeUnits[0].coefficientToLiter,
+      this.state.fluids[0].gramToLiterCoefficient);
     this.setState({
-      volumeValue: convertValue(this.state.massValue, 'mass', this.state.massToVolumeCoefficient),
+      volumeValue: convertValue(this.state.massValue, 'mass', computedMassToValueCoefficient),
       massUnit: this.state.massUnits[0],
       volumeUnit: this.state.volumeUnits[0],
       fluid: this.state.fluids[0],
-      massToVolumeCoefficient: computeMassToVolumeCoefficient(this.state.massUnits[0].coefficientToGram,
-        this.state.volumeUnits[0].coefficientToLiter,
-        this.state.fluids[0].gramToLiterCoefficient)
+      massToVolumeCoefficient: computedMassToValueCoefficient
     });
   }
 
