@@ -64,6 +64,32 @@ font-size: x-large;
 
 const UnitSelect = styled(Select)`
 align-self: stretch;
+.Select-control {
+  border: none;
+  background: transparent;
+}
+&.is-open > .Select-control{
+  border-radius: 0;
+  background: ${props => props.theme.primary};
+}
+&.is-focused:not(.is-open) > .Select-control{
+  border:none;
+  box-shadow: 0 0 0;
+}
+
+.Select-value {
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+}
+
+.Select-option {
+  text-align: center;
+  font-size: large;
+}
+.Select-option.is-focused {
+  background-color: ${props => props.theme.primaryLight};
+}
 `;
 
 class UnitPicker extends Component {

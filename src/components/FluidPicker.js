@@ -30,6 +30,9 @@ const FluidSelect = styled(Select)`
     text-align: center;
     font-size: large;
 }
+.Select-option.is-focused {
+    background-color: ${props => props.theme.primaryLight};
+}
 `;
 
 
