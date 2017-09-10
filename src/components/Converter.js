@@ -4,8 +4,15 @@ import {Helmet} from "react-helmet";
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
+const massUnits = require('../resources/data/massUnits.json').units;
+const volumeUnits = require('../resources/data/volumeUnits.json').units;
+const fluids = require('../resources/data/fluids.json').fluids;
 const themes = require('../resources/parameters/themes.json').themes;
-const theme = themes.filter(theme => theme.name === "amber")[0];
+
+const MetaWrapper = styled.div`
+height: 100%;
+width: 100%;
+`;
 
 const Background = styled.div`
 width: 100%;
@@ -47,38 +54,32 @@ justify-content: space-between;
 align-items: center;
 `;
 
-const MetaWrapper = styled.div`
-height: 100%;
-width: 100%;
+const Footer = styled.footer`
+background: ${props => props.theme.primary};
+padding: 1em 0 1em 0;
+display:flex;
+flex-flow: row nowrap;
+justify-content: flex-start;
+align-items: center;
 `;
 
 class Converter extends Component {
   constructor() {
     super();
+
+    let computedMassToValueCoefficient = computeMassToVolumeCoefficient(massUnits[0].coefficientToGram,
+      volumeUnits[0].coefficientToLiter,
+      fluids[0].gramToLiterCoefficient);
+
     this.state = {
       massValue: 1,
       volumeValue: 0,
-      massUnits: require('../resources/data/massUnits.json').units,
-      massUnit:'g',
-      volumeUnits: require('../resources/data/volumeUnits.json').units,
-      volumeUnit: 'L',
-      fluids: require('../resources/data/fluids.json').fluids,
-      fluid: 'water',
-      massToVolumeCoefficient:0.001,
+      massUnit:massUnits[0],
+      volumeUnit: volumeUnits[0],
+      fluid: fluids[0],
+      massToVolumeCoefficient: computedMassToValueCoefficient,
+      theme: themes.filter(theme => theme.name === "amber")[0]
     }
-  }
-
-  componentWillMount() {
-    let computedMassToValueCoefficient = computeMassToVolumeCoefficient(this.state.massUnits[0].coefficientToGram,
-      this.state.volumeUnits[0].coefficientToLiter,
-      this.state.fluids[0].gramToLiterCoefficient);
-    this.setState({
-      volumeValue: convertValue(this.state.massValue, 'mass', computedMassToValueCoefficient),
-      massUnit: this.state.massUnits[0],
-      volumeUnit: this.state.volumeUnits[0],
-      fluid: this.state.fluids[0],
-      massToVolumeCoefficient: computedMassToValueCoefficient
-    });
   }
 
   handleVolumeChanged(value) {
@@ -132,14 +133,22 @@ class Converter extends Component {
     }
   }
 
+  handleThemeChanged(value) {
+    if(value !== undefined) {
+      this.setState({
+        theme: value
+      });
+    }
+  }
+
   render() {
     return (
       <MetaWrapper>
         <Helmet>
-            <meta name="theme-color" content={theme.primary} />
+            <meta name="theme-color" content={this.state.theme.primary} />
         </Helmet>
           
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={this.state.theme}>
           
 
           <Background>
@@ -149,7 +158,7 @@ class Converter extends Component {
             
             <ConverterContainer>
               <FluidPicker
-              fluids = {this.state.fluids}
+              fluids = {fluids}
               onFluidChange = {value => this.handleFluidChanged(value)} />
 
               <UnitPickersAligner>
@@ -157,7 +166,7 @@ class Converter extends Component {
                 valueType = 'mass'
                 value = {this.state.massValue}
                 unit = {this.state.massUnit}
-                units = {this.state.massUnits}
+                units = {massUnits}
                 onValueChange = {value => this.handleMassChanged(value)}
                 onUnitChange = {value => this.handleMassUnitChanged(value)}/>
                 ≡
@@ -165,11 +174,15 @@ class Converter extends Component {
                 valueType = 'volume'
                 value = {this.state.volumeValue}
                 unit = {this.state.volumeUnit}
-                units = {this.state.volumeUnits}
+                units = {volumeUnits}
                 onValueChange = {value => this.handleVolumeChanged(value)}
                 onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
               </UnitPickersAligner>
             </ConverterContainer>
+
+            <Footer>
+
+            </Footer>
           </Background>
         </ThemeProvider>
       </MetaWrapper>
