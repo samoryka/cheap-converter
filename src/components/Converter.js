@@ -130,7 +130,7 @@ class Converter extends Component {
       <ThemeProvider theme={theme}>
         <Background>
           <Header>
-            <PlaceholderHeaderText><span role="img" aria-label= "I don't have an icon yet">🙋🏼️</span></PlaceholderHeaderText>
+            <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
           </Header>
           
           <ConverterContainer>
