@@ -3,11 +3,12 @@ import styled, {ThemeProvider} from 'styled-components';
 import {Helmet} from "react-helmet";
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
+import ThemePicker from './ThemePicker';
 
 const massUnits = require('../resources/data/massUnits.json').units;
 const volumeUnits = require('../resources/data/volumeUnits.json').units;
 const fluids = require('../resources/data/fluids.json').fluids;
-const themes = require('../resources/parameters/themes.json').themes;
+const themes = require('../resources/configuration/themes.json').themes;
 
 const MetaWrapper = styled.div`
 height: 100%;
@@ -55,8 +56,12 @@ align-items: center;
 `;
 
 const Footer = styled.footer`
-background: ${props => props.theme.primary};
-padding: 1em 0 1em 0;
+background: ${props => props.theme.backgroundDark};
+width:100%;
+box-sizing: border-box;
+position: absolute;
+bottom:0;
+padding: 0 1em 0 1em;
 display:flex;
 flex-flow: row nowrap;
 justify-content: flex-start;
@@ -158,30 +163,32 @@ class Converter extends Component {
             
             <ConverterContainer>
               <FluidPicker
-              fluids = {fluids}
-              onFluidChange = {value => this.handleFluidChanged(value)} />
+                fluids = {fluids}
+                onFluidChange = {value => this.handleFluidChanged(value)} />
 
               <UnitPickersAligner>
                 <UnitPicker
-                valueType = 'mass'
-                value = {this.state.massValue}
-                unit = {this.state.massUnit}
-                units = {massUnits}
-                onValueChange = {value => this.handleMassChanged(value)}
-                onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+                  valueType = 'mass'
+                  value = {this.state.massValue}
+                  unit = {this.state.massUnit}
+                  units = {massUnits}
+                  onValueChange = {value => this.handleMassChanged(value)}
+                  onUnitChange = {value => this.handleMassUnitChanged(value)}/>
                 ≡
                 <UnitPicker
-                valueType = 'volume'
-                value = {this.state.volumeValue}
-                unit = {this.state.volumeUnit}
-                units = {volumeUnits}
-                onValueChange = {value => this.handleVolumeChanged(value)}
-                onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+                  valueType = 'volume'
+                  value = {this.state.volumeValue}
+                  unit = {this.state.volumeUnit}
+                  units = {volumeUnits}
+                  onValueChange = {value => this.handleVolumeChanged(value)}
+                  onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
               </UnitPickersAligner>
             </ConverterContainer>
 
             <Footer>
-
+              <ThemePicker
+                themes = {themes}
+                onThemeChange = {value => this.handleThemeChanged(value)}/>
             </Footer>
           </Background>
         </ThemeProvider>
