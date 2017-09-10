@@ -79,12 +79,6 @@ class Converter extends Component {
 
   constructor() {
     super();
-
-    this.state = {
-      massUnit:massUnits[0],
-      volumeUnit: volumeUnits[0],
-      fluid: fluids[0],
-    }
   }
 
   componentWillMount() {
@@ -98,6 +92,9 @@ class Converter extends Component {
 
     this.state = {
       massValue: 1,
+      massUnit:massUnits[0],
+      volumeUnit: volumeUnits[0],
+      fluid: fluids[0],
       volumeValue: computedVolume,
       massToVolumeCoefficient: computedMassToValueCoefficient,
       theme: themes.filter(theme => theme.name === (cookies.get('themeName') || 'red'))[0]
