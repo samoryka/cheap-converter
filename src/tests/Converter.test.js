@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Scale from './Scale';
+import Converter from './components/Converter';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<Scale />, div);
+  ReactDOM.render(<Converter />, div);
 });
