@@ -7,6 +7,31 @@ const FluidPickerContainer = styled.div`
     margin: 1em 0.5em 1em 0.5em;
 `;
 
+const FluidSelect = styled(Select)`
+.Select-control {
+    border-color: ${props => props.theme.primary};
+    background: transparent;
+}
+&.is-open > .Select-control{
+    background: ${props => props.theme.primaryLight};
+}
+&.is-focused:not(.is-open) > .Select-control{
+    border-color: ${props => props.theme.primary};
+    box-shadow: 0 0 0;
+}
+
+.Select-value {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+}
+
+.Select-option {
+    text-align: center;
+    font-size: large;
+}
+`;
+
 
 class FluidPicker extends Component {
 
@@ -33,8 +58,9 @@ class FluidPicker extends Component {
     render() {
         return (
             <FluidPickerContainer>
-                <Select 
+                <FluidSelect 
                     id = "fluidPicker"
+                    className = "FluidSelect"
                     name="Fluid"
                     value = {this.state.selectedFluid}
                     options = {this.state.fluidOptions}

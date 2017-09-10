@@ -12,7 +12,7 @@ max-width: 40%;
 
 const Card = styled.div`
 border-radius: 5px;
-border-color: ${props => props.theme.primaryLight};
+border-color: ${props => props.theme.primary};
 border-style: solid;
 border-width: thin;
 
@@ -23,7 +23,7 @@ align-items: flex-end;
 `;
 
 const ValueLabel = styled.h1`
-background: ${props => props.theme.primaryLight};
+background: ${props => props.theme.primary};
 text-align: center;
 font-size: small;
 align-self: stretch;
@@ -38,24 +38,31 @@ flex-flow: row;
 flex: 0 1 auto;
 justify-content: flex-start;
 align-items: center;
+padding: 0.5em 0.1em 0.5em 0.5em;
 `;
 
 const ValueInput = styled.input`
 align-self: flex-start;
 width: 60%;
-padding: 0.5em 0.1em 0.5em 0.5em;
 font-size: xx-large;
 background: transparent;
 text-align: right;
-border:none;
 outline-style:none;
+border: none;
+border-bottom: thin dotted;
+border-color: ${props => props.theme.primary};
+
+&:focus {
+border-bottom: thin solid;
+border-color: ${props => props.theme.primaryDark};
+}
 `;
 
 const ValueUnit = styled.span`
 font-size: x-large;
 `;
 
-const StyledSelect = styled(Select)`
+const UnitSelect = styled(Select)`
 align-self: stretch;
 `;
 
@@ -93,9 +100,10 @@ class UnitPicker extends Component {
               min = {0}
               value = {this.props.value}
               onInput={evt => this.updateInputValue(evt)} />
-              <ValueUnit> {this.state.selectedUnit.value.symbol} </ValueUnit>
+              <ValueUnit> {this.getSymbol()} </ValueUnit>
           </ValueContainer>
-          <StyledSelect 
+          <UnitSelect 
+            className = "UnitSelect"
             name="unit"
             value = {this.state.selectedUnit}
             options = {this.state.unitOptions}
@@ -111,10 +119,15 @@ class UnitPicker extends Component {
   }
 
   changeUnit(selectedValue) {
-    this.props.onUnitChange(selectedValue.value);
-    this.setState({
-      selectedUnit:selectedValue
-  });
+      this.props.onUnitChange(selectedValue.value);
+      this.setState({
+        selectedUnit:selectedValue
+    });
+  }
+
+  getSymbol() {
+    if (this.state.selectedUnit.value !== undefined)
+      return this.state.selectedUnit.value.symbol;
   }
 }
 

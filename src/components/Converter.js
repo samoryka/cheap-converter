@@ -12,7 +12,7 @@ background: ${props => props.theme.background};
 `;
 
 const Header = styled.header`
-background: ${props => props.theme.primaryLight};
+background: ${props => props.theme.primary};
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
 
@@ -75,44 +75,54 @@ class Converter extends Component {
   }
 
   handleVolumeChanged(value) {
-    this.setState({
-      volumeValue: value,
-      massValue: convertValue(value, 'volume', this.state.massToVolumeCoefficient)
-    });
+    if(value !== undefined) {
+      this.setState({
+        volumeValue: value,
+        massValue: convertValue(value, 'volume', this.state.massToVolumeCoefficient)
+      });
+    }
   }
 
   handleMassChanged(value) {
-    this.setState({
-      massValue: value,
-      volumeValue: convertValue(value, 'mass', this.state.massToVolumeCoefficient)
-    });
+    if(value !== undefined) {
+      this.setState({
+        massValue: value,
+        volumeValue: convertValue(value, 'mass', this.state.massToVolumeCoefficient)
+      });
+    }
   }
 
   handleVolumeUnitChanged(value) {
-    let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, value.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
-    this.setState({
-      volumeUnit: value,
-      massToVolumeCoefficient:newCoefficient,
-      massValue: convertValue(this.state.volumeValue, 'volume', newCoefficient)
-    });
+    if(value !== undefined) {
+      let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, value.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
+      this.setState({
+        volumeUnit: value,
+        massToVolumeCoefficient:newCoefficient,
+        massValue: convertValue(this.state.volumeValue, 'volume', newCoefficient)
+      });
+    }
   }
 
   handleMassUnitChanged(value) {
-    let newCoefficient = computeMassToVolumeCoefficient(value.coefficientToGram, this.state.volumeUnit.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
-    this.setState({
-      massUnit: value,
-      massToVolumeCoefficient:newCoefficient,
-      volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
-    });
+    if(value !== undefined) {
+      let newCoefficient = computeMassToVolumeCoefficient(value.coefficientToGram, this.state.volumeUnit.coefficientToLiter, this.state.fluid.gramToLiterCoefficient);
+      this.setState({
+        massUnit: value,
+        massToVolumeCoefficient:newCoefficient,
+        volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
+      });
+    }
   }
 
   handleFluidChanged(value) {
-    let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, value.gramToLiterCoefficient);
-    this.setState({
-      fluid: value,
-      massToVolumeCoefficient: newCoefficient,
-      volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
-    });
+    if(value !== undefined) {
+      let newCoefficient = computeMassToVolumeCoefficient(this.state.massUnit.coefficientToGram, this.state.volumeUnit.coefficientToLiter, value.gramToLiterCoefficient);
+      this.setState({
+        fluid: value,
+        massToVolumeCoefficient: newCoefficient,
+        volumeValue: convertValue(this.state.massValue, 'mass', newCoefficient)
+      });
+    }
   }
 
   render() {
