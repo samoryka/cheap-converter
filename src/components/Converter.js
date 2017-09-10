@@ -83,7 +83,7 @@ class Converter extends Component {
       volumeUnit: volumeUnits[0],
       fluid: fluids[0],
       massToVolumeCoefficient: computedMassToValueCoefficient,
-      theme: themes.filter(theme => theme.name === "amber")[0]
+      theme: themes.filter(theme => theme.name === "red")[0]
     }
   }
 

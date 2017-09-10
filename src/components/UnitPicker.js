@@ -70,7 +70,7 @@ align-self: stretch;
 }
 &.is-open > .Select-control{
   border-radius: 0;
-  background: ${props => props.theme.primary};
+  background: ${props => props.theme.backgroundDark};
 }
 &.is-focused:not(.is-open) > .Select-control{
   border:none;
@@ -134,7 +134,8 @@ class UnitPicker extends Component {
             value = {this.state.selectedUnit}
             options = {this.state.unitOptions}
             onChange = {selectedValue => this.changeUnit(selectedValue)}
-            clearable = {false} />
+            clearable = {false}
+            searchable = {false}/>
           </Card>
       </UnitPickerContainer>
     );

@@ -89,7 +89,7 @@ class ThemePicker extends Component {
 
         this.state = {
             themeOptions: selectorOptions,
-            selectedTheme: selectorOptions.filter(option => option.value.name === "amber")[0]
+            selectedTheme: selectorOptions.filter(option => option.value.name === "red")[0]
         };
     }
 
@@ -103,7 +103,8 @@ class ThemePicker extends Component {
                     value = {this.state.selectedTheme}
                     options = {this.state.themeOptions}
                     onChange = {selectedValue => this.changeTheme(selectedValue)}
-                    clearable = {false} />
+                    clearable = {false}
+                    searchable = {false}/>
             </ThemePickerContainer>
         );
     }  
