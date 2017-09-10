@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, {ThemeProvider} from 'styled-components';
+import {Helmet} from "react-helmet";
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
@@ -43,6 +44,11 @@ display:flex;
 flex-flow: row wrap;
 justify-content: space-between;
 align-items: center;
+`;
+
+const MetaWrapper = styled.div`
+height: 100%;
+width: 100%;
 `;
 
 class Converter extends Component {
@@ -127,37 +133,45 @@ class Converter extends Component {
 
   render() {
     return (
-      <ThemeProvider theme={theme}>
-        <Background>
-          <Header>
-            <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
-          </Header>
+      <MetaWrapper>
+        <Helmet>
+            <meta name="theme-color" content={theme.primary} />
+        </Helmet>
           
-          <ConverterContainer>
-            <FluidPicker
-            fluids = {this.state.fluids}
-            onFluidChange = {value => this.handleFluidChanged(value)} />
+        <ThemeProvider theme={theme}>
+          
 
-            <UnitPickersAligner>
-              <UnitPicker
-              valueType = 'mass'
-              value = {this.state.massValue}
-              unit = {this.state.massUnit}
-              units = {this.state.massUnits}
-              onValueChange = {value => this.handleMassChanged(value)}
-              onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-              ≡
-              <UnitPicker
-              valueType = 'volume'
-              value = {this.state.volumeValue}
-              unit = {this.state.volumeUnit}
-              units = {this.state.volumeUnits}
-              onValueChange = {value => this.handleVolumeChanged(value)}
-              onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-            </UnitPickersAligner>
-          </ConverterContainer>
-        </Background>
-      </ThemeProvider>
+          <Background>
+            <Header>
+              <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
+            </Header>
+            
+            <ConverterContainer>
+              <FluidPicker
+              fluids = {this.state.fluids}
+              onFluidChange = {value => this.handleFluidChanged(value)} />
+
+              <UnitPickersAligner>
+                <UnitPicker
+                valueType = 'mass'
+                value = {this.state.massValue}
+                unit = {this.state.massUnit}
+                units = {this.state.massUnits}
+                onValueChange = {value => this.handleMassChanged(value)}
+                onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+                ≡
+                <UnitPicker
+                valueType = 'volume'
+                value = {this.state.volumeValue}
+                unit = {this.state.volumeUnit}
+                units = {this.state.volumeUnits}
+                onValueChange = {value => this.handleVolumeChanged(value)}
+                onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+              </UnitPickersAligner>
+            </ConverterContainer>
+          </Background>
+        </ThemeProvider>
+      </MetaWrapper>
     );
   }
 }
