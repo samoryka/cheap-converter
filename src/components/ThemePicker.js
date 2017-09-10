@@ -89,7 +89,7 @@ class ThemePicker extends Component {
 
         this.state = {
             themeOptions: selectorOptions,
-            selectedTheme: selectorOptions.filter(option => option.value.name === "red")[0]
+            selectedTheme: selectorOptions.filter(option => option.value.name === props.theme.name)[0]
         };
     }
 

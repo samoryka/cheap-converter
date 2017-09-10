@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import styled, {ThemeProvider} from 'styled-components';
 import {Helmet} from "react-helmet";
+import { withCookies, Cookies } from 'react-cookie';
+import { instanceOf } from 'prop-types';
+
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 import ThemePicker from './ThemePicker';
+
 
 const massUnits = require('../resources/data/massUnits.json').units;
 const volumeUnits = require('../resources/data/volumeUnits.json').units;
@@ -69,22 +73,35 @@ align-items: center;
 `;
 
 class Converter extends Component {
+  static propTypes = {
+    cookies: instanceOf(Cookies).isRequired
+  };
+
   constructor() {
     super();
+
+    this.state = {
+      massUnit:massUnits[0],
+      volumeUnit: volumeUnits[0],
+      fluid: fluids[0],
+    }
+  }
+
+  componentWillMount() {
+    const { cookies } = this.props;
 
     let computedMassToValueCoefficient = computeMassToVolumeCoefficient(massUnits[0].coefficientToGram,
       volumeUnits[0].coefficientToLiter,
       fluids[0].gramToLiterCoefficient);
 
+    let computedVolume = convertValue(1, 'mass', computedMassToValueCoefficient);
+
     this.state = {
       massValue: 1,
-      volumeValue: 0,
-      massUnit:massUnits[0],
-      volumeUnit: volumeUnits[0],
-      fluid: fluids[0],
+      volumeValue: computedVolume,
       massToVolumeCoefficient: computedMassToValueCoefficient,
-      theme: themes.filter(theme => theme.name === "red")[0]
-    }
+      theme: themes.filter(theme => theme.name === (cookies.get('themeName') || 'red'))[0]
+    };
   }
 
   handleVolumeChanged(value) {
@@ -140,6 +157,9 @@ class Converter extends Component {
 
   handleThemeChanged(value) {
     if(value !== undefined) {
+      const { cookies } = this.props;
+      cookies.set('themeName', value.name, { path: '/' });
+
       this.setState({
         theme: value
       });
@@ -187,6 +207,7 @@ class Converter extends Component {
 
             <Footer>
               <ThemePicker
+                theme = {this.state.theme}
                 themes = {themes}
                 onThemeChange = {value => this.handleThemeChanged(value)}/>
             </Footer>
@@ -217,4 +238,4 @@ function convertValue(value, valueType, massToVolumeCoefficient) {
     return 0;
 }
 
-export default Converter;
+export default withCookies(Converter);
