@@ -4,7 +4,8 @@ import {Helmet} from "react-helmet";
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
-const theme = require('../resources/themes/pink.json');
+const themes = require('../resources/parameters/themes.json').themes;
+const theme = themes.filter(theme => theme.name === "amber")[0];
 
 const Background = styled.div`
 width: 100%;

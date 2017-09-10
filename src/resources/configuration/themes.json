@@ -1,0 +1,40 @@
+{
+    "themes":
+    [
+        {
+            "name": "red",
+            "primary":"#ef5350",
+            "primaryDark":"#b61827",
+            "primaryLight":"#ff867c",
+            "background":"#f5f5f6"
+        },
+        {
+            "name": "pink",
+            "primary":"#ff6090",
+            "primaryDark":"#c72763",
+            "primaryLight":"#ff94c0",
+            "background":"#f5f5f6"
+        },
+        {
+            "name":"blue",
+            "primary":"#42a5f5",
+            "primaryDark":"#0077c2",
+            "primaryLight":"#80d6ff",
+            "background":"#f5f5f6"
+        },
+        {
+            "name": "green",
+            "primary":"#66bb6a",
+            "primaryDark":"#338a3e",
+            "primaryLight":"#98ee99",
+            "background":"#f5f5f6"
+        },
+        {
+            "name": "amber",
+            "primary":"#ffca28",
+            "primaryDark":"#c79a00",
+            "primaryLight":"#fffd61",
+            "background":"#f5f5f6"
+        }
+    ]
+}
