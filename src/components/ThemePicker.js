@@ -29,6 +29,9 @@ const ThemeSelect = styled(Select)`
 .Select-control {
     border-color: ${props => props.theme.primary};
     background: transparent;
+    &:hover {
+        background-color: ${props => props.theme.primaryLight};
+      }
 }
 &.is-open > .Select-control{
     background: ${props => props.theme.primaryLight};

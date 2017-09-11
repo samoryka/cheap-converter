@@ -56,6 +56,9 @@ border-color: ${props => props.theme.primary};
 border-bottom: thin solid;
 border-color: ${props => props.theme.primaryDark};
 }
+&:hover {
+  background-color: ${props => props.theme.primaryLight};
+}
 `;
 
 const ValueUnit = styled.span`
@@ -67,6 +70,9 @@ align-self: stretch;
 .Select-control {
   border: none;
   background: transparent;
+  &:hover {
+    background-color: ${props => props.theme.primaryLight};
+  }
 }
 &.is-open > .Select-control{
   border-radius: 0;
