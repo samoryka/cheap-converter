@@ -79,6 +79,11 @@ border-radius: 5px;
 padding: 0.4em;
 &:hover {
   background-color: ${props => props.theme.primaryLight};
+  outline: none;
+}
+&:focus {
+  background-color: transparent;
+  outlint: none;
 }
 `;
 
