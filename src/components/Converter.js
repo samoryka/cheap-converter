@@ -3,6 +3,7 @@ import styled, {ThemeProvider} from 'styled-components';
 import {Helmet} from "react-helmet";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
+import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
@@ -29,12 +30,18 @@ const Header = styled.header`
 background: ${props => props.theme.primary};
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 `;
+const HeaderLink = styled(Link)`
+text-decoration: none;
+`;
 
 const PlaceholderHeaderText = styled.h1`
 margin: auto;
 padding: 0.5em 0 0.5em 0;
 text-align: center;
 color: white;
+&:hover{
+  background: ${props => props.theme.primaryLight};
+}
 `;
 
 const ConverterContainer = styled.div`
@@ -59,6 +66,27 @@ justify-content: space-between;
 align-items: center;
 `;
 
+const AboutButton = styled.button`
+text-align: center;
+font-size: large;
+border: solid thin ${props => props.theme.primary};
+background-color: transparent;
+border-radius: 5px;
+padding: 0.4em;
+&:hover {
+  background-color: ${props => props.theme.primaryLight};
+}
+`;
+
+
+const AboutText = styled.span`
+font-size: large;
+`;
+
+const AboutSection = () => (
+<AboutText> test </AboutText>
+);
+
 const Footer = styled.footer`
 background: ${props => props.theme.backgroundDark};
 width:100%;
@@ -68,7 +96,7 @@ bottom:0;
 padding: 0 1em 0 1em;
 display:flex;
 flex-flow: row nowrap;
-justify-content: flex-start;
+justify-content: space-between;
 align-items: center;
 `;
 
@@ -165,47 +193,55 @@ class Converter extends Component {
         <Helmet>
             <meta name="theme-color" content={this.state.theme.primary} />
         </Helmet>
-          
-        <ThemeProvider theme={this.state.theme}>
-          
+        <Router>
+          <ThemeProvider theme={this.state.theme}>
+            <Background>
+              <HeaderLink to = {'/'}>
+              <Header>
+                <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
+              </Header>
+              </HeaderLink>
+              <Route exact = {true} path = "/" render = { () => (
+                <ConverterContainer>
+                  <FluidPicker
+                    fluids = {fluids}
+                    onFluidChange = {value => this.handleFluidChanged(value)} />
 
-          <Background>
-            <Header>
-              <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
-            </Header>
-            
-            <ConverterContainer>
-              <FluidPicker
-                fluids = {fluids}
-                onFluidChange = {value => this.handleFluidChanged(value)} />
+                  <UnitPickersAligner>
+                    <UnitPicker
+                      valueType = 'mass'
+                      value = {this.state.massValue}
+                      unit = {this.state.massUnit}
+                      units = {massUnits}
+                      onValueChange = {value => this.handleMassChanged(value)}
+                      onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+                    ≡
+                    <UnitPicker
+                      valueType = 'volume'
+                      value = {this.state.volumeValue}
+                      unit = {this.state.volumeUnit}
+                      units = {volumeUnits}
+                      onValueChange = {value => this.handleVolumeChanged(value)}
+                      onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+                  </UnitPickersAligner>
+              </ConverterContainer>
+              )} />
 
-              <UnitPickersAligner>
-                <UnitPicker
-                  valueType = 'mass'
-                  value = {this.state.massValue}
-                  unit = {this.state.massUnit}
-                  units = {massUnits}
-                  onValueChange = {value => this.handleMassChanged(value)}
-                  onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-                ≡
-                <UnitPicker
-                  valueType = 'volume'
-                  value = {this.state.volumeValue}
-                  unit = {this.state.volumeUnit}
-                  units = {volumeUnits}
-                  onValueChange = {value => this.handleVolumeChanged(value)}
-                  onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-              </UnitPickersAligner>
-            </ConverterContainer>
+              <Route exact = {true} path = "/about" component = {AboutSection}/>
 
-            <Footer>
-              <ThemePicker
-                theme = {this.state.theme}
-                themes = {themes}
-                onThemeChange = {value => this.handleThemeChanged(value)}/>
-            </Footer>
-          </Background>
-        </ThemeProvider>
+              <Footer>
+                <ThemePicker
+                  theme = {this.state.theme}
+                  themes = {themes}
+                  onThemeChange = {value => this.handleThemeChanged(value)}/>
+
+                  <Link to = {'/about'}>
+                    <AboutButton>About</AboutButton>
+                  </Link>
+              </Footer>
+            </Background>
+          </ThemeProvider>
+        </Router>
       </MetaWrapper>
     );
   }
