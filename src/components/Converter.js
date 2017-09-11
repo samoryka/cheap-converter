@@ -8,6 +8,7 @@ import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 import ThemePicker from './ThemePicker';
+import About from './About';
 
 
 const massUnits = require('../resources/data/massUnits.json').units;
@@ -39,9 +40,6 @@ margin: auto;
 padding: 0.5em 0 0.5em 0;
 text-align: center;
 color: white;
-&:hover{
-  background: ${props => props.theme.primaryLight};
-}
 `;
 
 const ConverterContainer = styled.div`
@@ -77,15 +75,6 @@ padding: 0.4em;
   background-color: ${props => props.theme.primaryLight};
 }
 `;
-
-
-const AboutText = styled.span`
-font-size: large;
-`;
-
-const AboutSection = () => (
-<AboutText> test </AboutText>
-);
 
 const Footer = styled.footer`
 background: ${props => props.theme.backgroundDark};
@@ -201,33 +190,35 @@ class Converter extends Component {
                 <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
               </Header>
               </HeaderLink>
-              <Route exact = {true} path = "/" render = { () => (
-                <ConverterContainer>
-                  <FluidPicker
-                    fluids = {fluids}
-                    onFluidChange = {value => this.handleFluidChanged(value)} />
+              <ConverterContainer>
+                <Route exact = {true} path = "/" render = { () => (
+                  <div className="converter">
+                      <FluidPicker
+                        fluids = {fluids}
+                        onFluidChange = {value => this.handleFluidChanged(value)} />
 
-                  <UnitPickersAligner>
-                    <UnitPicker
-                      valueType = 'mass'
-                      value = {this.state.massValue}
-                      unit = {this.state.massUnit}
-                      units = {massUnits}
-                      onValueChange = {value => this.handleMassChanged(value)}
-                      onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-                    ≡
-                    <UnitPicker
-                      valueType = 'volume'
-                      value = {this.state.volumeValue}
-                      unit = {this.state.volumeUnit}
-                      units = {volumeUnits}
-                      onValueChange = {value => this.handleVolumeChanged(value)}
-                      onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-                  </UnitPickersAligner>
+                      <UnitPickersAligner>
+                        <UnitPicker
+                          valueType = 'mass'
+                          value = {this.state.massValue}
+                          unit = {this.state.massUnit}
+                          units = {massUnits}
+                          onValueChange = {value => this.handleMassChanged(value)}
+                          onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+                        ≡
+                        <UnitPicker
+                          valueType = 'volume'
+                          value = {this.state.volumeValue}
+                          unit = {this.state.volumeUnit}
+                          units = {volumeUnits}
+                          onValueChange = {value => this.handleVolumeChanged(value)}
+                          onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+                      </UnitPickersAligner>
+                    </div>
+                )} />
+                
+                <Route exact = {true} path = "/about" component = {About}/>
               </ConverterContainer>
-              )} />
-
-              <Route exact = {true} path = "/about" component = {AboutSection}/>
 
               <Footer>
                 <ThemePicker
