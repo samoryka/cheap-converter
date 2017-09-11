@@ -77,10 +77,6 @@ class Converter extends Component {
     cookies: instanceOf(Cookies).isRequired
   };
 
-  constructor() {
-    super();
-  }
-
   componentWillMount() {
     const { cookies } = this.props;
 
