@@ -59,7 +59,7 @@ class About extends Component {
                     weigh the ingredients I use while cooking since I already have means to measure their volumes.
                     <br/><br/>
                     Making a weight/volume converter was thus the perfect occasion to learn how to use <a href="https://nodejs.org">Node.js</a>
-                    , <a href="https://github.com/samoryka">React</a> and other JavaScript frameworks/libraries/tools.
+                    , <a href="https://facebook.github.io/react/">React</a> and other JavaScript frameworks/libraries/tools.
                     <br/>
                 </AboutText>
                 <BackLink to = {'/'}>
