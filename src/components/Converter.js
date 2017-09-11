@@ -17,19 +17,25 @@ const fluids = require('../resources/data/fluids.json').fluids;
 const themes = require('../resources/configuration/themes.json').themes;
 
 const MetaWrapper = styled.div`
-height: 100%;
 width: 100%;
+height:100%;
 `;
 
 const Background = styled.div`
 width: 100%;
-height: 100%;
-background: ${props => props.theme.background};
+min-height:100%;
+background: ${props => props.theme.background};;
+
+display:flex;
+flex-flow: column wrap;
+justify-content: flex-start;
+align-items: stretch;
 `;
 
 const Header = styled.header`
 background: ${props => props.theme.primary};
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+align-self: stretch;
 `;
 const HeaderLink = styled(Link)`
 text-decoration: none;
@@ -78,10 +84,9 @@ padding: 0.4em;
 
 const Footer = styled.footer`
 background: ${props => props.theme.backgroundDark};
-width:100%;
 box-sizing: border-box;
-position: absolute;
-bottom:0;
+
+margin-top: auto;
 padding: 0 1em 0 1em;
 display:flex;
 flex-flow: row nowrap;
