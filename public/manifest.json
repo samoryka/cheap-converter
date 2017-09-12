@@ -3,18 +3,28 @@
   "name": "Cheap Scale",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "launcher-icon-1x.png",
+      "type": "image/png",
+      "sizes": "48x48"
     },
     {
-      "src": "favicon-dark.png",
+      "src": "launcher-icon-2x.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "launcher-icon-4x.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "launcher-icon-high.png",
       "sizes": "512x512",
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ef5350",
+  "background_color": "#ef5350"
 }
