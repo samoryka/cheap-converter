@@ -16,6 +16,8 @@ const volumeUnits = require('../resources/data/volumeUnits.json').units;
 const fluids = require('../resources/data/fluids.json').fluids;
 const themes = require('../resources/configuration/themes.json').themes;
 
+const appIcon = require('../resources/assets/favicon-light.png');
+
 const MetaWrapper = styled.div`
 width: 100%;
 height:100%;
@@ -36,17 +38,23 @@ const Header = styled.header`
 background: ${props => props.theme.primary};
 box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 align-self: stretch;
+
+padding: 0.5em 0 0.5em 0;
+
+display:flex;
+flex-flow: row wrap;
+justify-content: center;
+align-items: center;
 `;
 const HeaderLink = styled(Link)`
 text-decoration: none;
 `;
 
-const PlaceholderHeaderText = styled.h1`
-margin: auto;
-padding: 0.5em 0 0.5em 0;
-text-align: center;
+const HeaderIcon = styled.img`
 color: white;
+height: 2em;
 `;
+
 
 const ConverterContainer = styled.div`
 @media screen and (min-width: 600px), handheld {
@@ -197,7 +205,7 @@ class Converter extends Component {
             <Background>
               <HeaderLink to = {process.env.PUBLIC_URL + '/'}>
               <Header>
-                <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
+                <HeaderIcon src = {appIcon} alt="Application icon"/>
               </Header>
               </HeaderLink>
               <ConverterContainer>
