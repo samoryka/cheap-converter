@@ -201,7 +201,7 @@ class Converter extends Component {
               </Header>
               </HeaderLink>
               <ConverterContainer>
-                <Route exact = {true} path = "/" render = { () => (
+                <Route exact = {true} path = {process.env.PUBLIC_URL + '/'} render = { () => (
                   <div className="converter">
                       <FluidPicker
                         fluids = {fluids}
@@ -227,7 +227,7 @@ class Converter extends Component {
                     </div>
                 )} />
                 
-                <Route exact = {true} path = "/about" component = {About}/>
+                <Route exact = {true} path = {process.env.PUBLIC_URL + '/about'} component = {About}/>
               </ConverterContainer>
 
               <Footer>
