@@ -62,7 +62,7 @@ class About extends Component {
                     , <a href="https://facebook.github.io/react/">React</a> and other JavaScript frameworks/libraries/tools.
                     <br/>
                 </AboutText>
-                <BackLink to = {'/'}>
+                <BackLink to = {process.env.PUBLIC_URL + '/'}>
                     <BackButton>Back</BackButton>
                 </BackLink>
             </Card>

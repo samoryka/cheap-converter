@@ -195,7 +195,7 @@ class Converter extends Component {
         <Router>
           <ThemeProvider theme={this.state.theme}>
             <Background>
-              <HeaderLink to = {'/'}>
+              <HeaderLink to = {process.env.PUBLIC_URL + '/'}>
               <Header>
                 <PlaceholderHeaderText><span role="img" aria-label= "App icon placeholder">👨‍🍳</span></PlaceholderHeaderText>
               </Header>
@@ -236,7 +236,7 @@ class Converter extends Component {
                   themes = {themes}
                   onThemeChange = {value => this.handleThemeChanged(value)}/>
 
-                  <Link to = {'/about'}>
+                  <Link to = {process.env.PUBLIC_URL + '/about'}>
                     <AboutButton>About</AboutButton>
                   </Link>
               </Footer>
