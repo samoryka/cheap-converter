@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { CookiesProvider} from 'react-cookie';
 import './index.css';
-import Converter from './components/Converter';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
     <CookiesProvider>
-        <Converter />
+        <App />
     </CookiesProvider>, document.getElementById('root'));
 registerServiceWorker();

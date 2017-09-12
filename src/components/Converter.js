@@ -1,74 +1,15 @@
 import React, { Component } from 'react';
-import styled, {ThemeProvider} from 'styled-components';
-import {Helmet} from "react-helmet";
-import { withCookies, Cookies } from 'react-cookie';
-import { instanceOf } from 'prop-types';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import styled from 'styled-components';
 
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
-import ThemePicker from './ThemePicker';
-import About from './About';
 
 
 const massUnits = require('../resources/data/massUnits.json').units;
 const volumeUnits = require('../resources/data/volumeUnits.json').units;
 const fluids = require('../resources/data/fluids.json').fluids;
-const themes = require('../resources/configuration/themes.json').themes;
-
-const appIcon = require('../resources/assets/favicon-light.png');
-
-const MetaWrapper = styled.div`
-width: 100%;
-height:100%;
-`;
-
-const Background = styled.div`
-width: 100%;
-min-height:100%;
-background: ${props => props.theme.background};;
-
-display:flex;
-flex-flow: column wrap;
-justify-content: flex-start;
-align-items: stretch;
-`;
-
-const Header = styled.header`
-background: ${props => props.theme.primary};
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-align-self: stretch;
-
-padding: 0.5em 0 0.5em 0;
-
-display:flex;
-flex-flow: row wrap;
-justify-content: center;
-align-items: center;
-`;
-const HeaderLink = styled(Link)`
-text-decoration: none;
-`;
-
-const HeaderIcon = styled.img`
-color: white;
-height: 2em;
-`;
 
 
-const ConverterContainer = styled.div`
-@media screen and (min-width: 600px), handheld {
-    width: 50%;
-    margin: auto;
-    padding: 1em 0 1em 0;
-    box-sizing: border-box;
-}
-@media screen and (max-width: 600px){
-    width: 100%;
-    padding: 1em;
-    box-sizing: border-box;
-}
-`;
 const UnitPickersAligner = styled.div`
 margin: 1em 0 1em 0;
 width:100%;
@@ -78,42 +19,11 @@ justify-content: space-between;
 align-items: center;
 `;
 
-const AboutButton = styled.button`
-text-align: center;
-font-size: large;
-border: solid thin ${props => props.theme.primary};
-background-color: transparent;
-border-radius: 5px;
-padding: 0.4em;
-&:hover {
-  background-color: ${props => props.theme.primaryLight};
-  outline: none;
-}
-&:focus {
-  background-color: transparent;
-  outlint: none;
-}
-`;
 
-const Footer = styled.footer`
-background: ${props => props.theme.backgroundDark};
-box-sizing: border-box;
-
-margin-top: auto;
-padding: 0 1em 0 1em;
-display:flex;
-flex-flow: row nowrap;
-justify-content: space-between;
-align-items: center;
-`;
 
 class Converter extends Component {
-  static propTypes = {
-    cookies: instanceOf(Cookies).isRequired
-  };
 
   componentWillMount() {
-    const { cookies } = this.props;
 
     let computedMassToValueCoefficient = computeMassToVolumeCoefficient(massUnits[0].coefficientToGram,
       volumeUnits[0].coefficientToLiter,
@@ -127,8 +37,7 @@ class Converter extends Component {
       volumeUnit: volumeUnits[0],
       fluid: fluids[0],
       volumeValue: computedVolume,
-      massToVolumeCoefficient: computedMassToValueCoefficient,
-      theme: themes.filter(theme => theme.name === (cookies.get('themeName') || 'red'))[0]
+      massToVolumeCoefficient: computedMassToValueCoefficient
     };
   }
 
@@ -183,75 +92,31 @@ class Converter extends Component {
     }
   }
 
-  handleThemeChanged(value) {
-    if(value !== undefined) {
-      const { cookies } = this.props;
-      cookies.set('themeName', value.name, { path: '/' });
-
-      this.setState({
-        theme: value
-      });
-    }
-  }
-
   render() {
     return (
-      <MetaWrapper>
-        <Helmet>
-            <meta name="theme-color" content={this.state.theme.primary} />
-        </Helmet>
-        <Router>
-          <ThemeProvider theme={this.state.theme}>
-            <Background>
-              <HeaderLink to = {process.env.PUBLIC_URL + '/'}>
-              <Header>
-                <HeaderIcon src = {appIcon} alt="Application icon"/>
-              </Header>
-              </HeaderLink>
-              <ConverterContainer>
-                <Route exact = {true} path = {process.env.PUBLIC_URL + '/'} render = { () => (
-                  <div className="converter">
-                      <FluidPicker
-                        fluids = {fluids}
-                        onFluidChange = {value => this.handleFluidChanged(value)} />
+      <div className="converter">
+        <FluidPicker
+          fluids = {fluids}
+          onFluidChange = {value => this.handleFluidChanged(value)} />
 
-                      <UnitPickersAligner>
-                        <UnitPicker
-                          valueType = 'mass'
-                          value = {this.state.massValue}
-                          unit = {this.state.massUnit}
-                          units = {massUnits}
-                          onValueChange = {value => this.handleMassChanged(value)}
-                          onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-                        ≡
-                        <UnitPicker
-                          valueType = 'volume'
-                          value = {this.state.volumeValue}
-                          unit = {this.state.volumeUnit}
-                          units = {volumeUnits}
-                          onValueChange = {value => this.handleVolumeChanged(value)}
-                          onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-                      </UnitPickersAligner>
-                    </div>
-                )} />
-                
-                <Route exact = {true} path = {process.env.PUBLIC_URL + '/about'} component = {About}/>
-              </ConverterContainer>
-
-              <Footer>
-                <ThemePicker
-                  theme = {this.state.theme}
-                  themes = {themes}
-                  onThemeChange = {value => this.handleThemeChanged(value)}/>
-
-                  <Link to = {process.env.PUBLIC_URL + '/about'}>
-                    <AboutButton>About</AboutButton>
-                  </Link>
-              </Footer>
-            </Background>
-          </ThemeProvider>
-        </Router>
-      </MetaWrapper>
+        <UnitPickersAligner>
+          <UnitPicker
+            valueType = 'mass'
+            value = {this.state.massValue}
+            unit = {this.state.massUnit}
+            units = {massUnits}
+            onValueChange = {value => this.handleMassChanged(value)}
+            onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+          ≡
+          <UnitPicker
+            valueType = 'volume'
+            value = {this.state.volumeValue}
+            unit = {this.state.volumeUnit}
+            units = {volumeUnits}
+            onValueChange = {value => this.handleVolumeChanged(value)}
+            onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+        </UnitPickersAligner>
+      </div>                
     );
   }
 }
@@ -276,4 +141,4 @@ function convertValue(value, valueType, massToVolumeCoefficient) {
     return 0;
 }
 
-export default withCookies(Converter);
+export default Converter;
