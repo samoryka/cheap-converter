@@ -5,9 +5,9 @@ import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
 
-const massUnits = require('../resources/data/massUnits.json').units;
-const volumeUnits = require('../resources/data/volumeUnits.json').units;
-const fluids = require('../resources/data/fluids.json').fluids;
+const massUnits = require('../../resources/data/massUnits.json').units;
+const volumeUnits = require('../../resources/data/volumeUnits.json').units;
+const fluids = require('../../resources/data/fluids.json').fluids;
 
 
 const UnitPickersAligner = styled.div`

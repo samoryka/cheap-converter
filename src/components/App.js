@@ -6,7 +6,7 @@ import { instanceOf } from 'prop-types';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Header from './Header';
-import Converter from './Converter';
+import Converter from './Converter/Converter';
 import Footer from './Footer';
 import About from './About';
 
