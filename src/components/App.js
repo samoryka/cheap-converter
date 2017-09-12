@@ -3,15 +3,15 @@ import styled, {ThemeProvider} from 'styled-components';
 import {Helmet} from "react-helmet";
 import { withCookies, Cookies } from 'react-cookie';
 import { instanceOf } from 'prop-types';
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
+import Header from './Header';
 import Converter from './Converter';
-import ThemePicker from './ThemePicker';
+import Footer from './Footer';
 import About from './About';
 
 
 const themes = require('../resources/configuration/themes.json').themes;
-const appIcon = require('../resources/assets/favicon-light.png');
 
 const MetaWrapper = styled.div`
 width: 100%;
@@ -29,27 +29,6 @@ justify-content: flex-start;
 align-items: stretch;
 `;
 
-const Header = styled.header`
-background: ${props => props.theme.primary};
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-align-self: stretch;
-
-padding: 0.5em 0 0.5em 0;
-
-display:flex;
-flex-flow: row wrap;
-justify-content: center;
-align-items: center;
-`;
-const HeaderLink = styled(Link)`
-text-decoration: none;
-`;
-
-const HeaderIcon = styled.img`
-color: white;
-height: 2em;
-`;
-
 
 const ContentContainer = styled.div`
 @media screen and (min-width: 600px), handheld {
@@ -63,35 +42,6 @@ const ContentContainer = styled.div`
     padding: 1em;
     box-sizing: border-box;
 }
-`;
-
-const AboutButton = styled.button`
-text-align: center;
-font-size: large;
-border: solid thin ${props => props.theme.primary};
-background-color: transparent;
-border-radius: 5px;
-padding: 0.4em;
-&:hover {
-  background-color: ${props => props.theme.primaryLight};
-  outline: none;
-}
-&:focus {
-  background-color: transparent;
-  outlint: none;
-}
-`;
-
-const Footer = styled.footer`
-background: ${props => props.theme.backgroundDark};
-box-sizing: border-box;
-
-margin-top: auto;
-padding: 0 1em 0 1em;
-display:flex;
-flex-flow: row nowrap;
-justify-content: space-between;
-align-items: center;
 `;
 
 class App extends Component {
@@ -128,27 +78,17 @@ class App extends Component {
                 <Router>
                     <ThemeProvider theme={this.state.theme}>
                         <Background>
-                            <HeaderLink to = {process.env.PUBLIC_URL + '/'}>
-                                <Header>
-                                    <HeaderIcon src = {appIcon} alt="Application icon"/>
-                                </Header>
-                            </HeaderLink>
+                            <Header />
 
                             <ContentContainer>
                                 <Route exact = {true} path = {process.env.PUBLIC_URL + '/'} component = {Converter} />
                                 <Route exact = {true} path = {process.env.PUBLIC_URL + '/about'} component = {About}/>
                             </ContentContainer>
 
-                            <Footer>
-                                <ThemePicker
-                                theme = {this.state.theme}
+                            <Footer 
+                                pickedTheme = {this.state.theme}
                                 themes = {themes}
                                 onThemeChange = {value => this.handleThemeChanged(value)}/>
-
-                                <Link to = {process.env.PUBLIC_URL + '/about'}>
-                                    <AboutButton>About</AboutButton>
-                                </Link>
-                            </Footer>
                         </Background>
                     </ThemeProvider>
                 </Router>
