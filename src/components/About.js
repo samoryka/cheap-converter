@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 const Card = styled.div`
 border-radius: 5px;
@@ -50,22 +51,40 @@ padding: 0.4em;
 
 class About extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = { show: false };
+      }
+
+      componentDidMount() {
+        this.setState({ show: true });
+      }
+    
+      componentWillUnmount() {
+        this.setState({ show: false });
+      }
+
     render() {
         return (
-            <Card>  
-                <AboutLabel>About this app</AboutLabel>  
-                <AboutText>
-                    <a href="https://github.com/samoryka">I</a> did not want to spend money on a scale to
-                    weigh the ingredients I use while cooking since I already have means to measure their volumes.
-                    <br/><br/>
-                    Making a weight/volume converter was thus the perfect occasion to learn how to use <a href="https://nodejs.org">Node.js</a>
-                    , <a href="https://facebook.github.io/react/">React</a> and other JavaScript frameworks/libraries/tools.
-                    <br/>
-                </AboutText>
-                <BackLink to = {process.env.PUBLIC_URL + '/'}>
-                    <BackButton>Back</BackButton>
-                </BackLink>
-            </Card>
+            <CSSTransition
+                timeout={500}
+                classNames="fade"
+                in={this.state.show}>
+                <Card>  
+                    <AboutLabel>About this app</AboutLabel>  
+                    <AboutText>
+                        <a href="https://github.com/samoryka">I</a> did not want to spend money on a scale to
+                        weigh the ingredients I use while cooking since I already have means to measure their volumes.
+                        <br/><br/>
+                        Making a weight/volume converter was thus the perfect occasion to learn how to use <a href="https://nodejs.org">Node.js</a>
+                        , <a href="https://facebook.github.io/react/">React</a> and other JavaScript frameworks/libraries/tools.
+                        <br/>
+                    </AboutText>
+                    <BackLink to = {process.env.PUBLIC_URL + '/'}>
+                        <BackButton>Back</BackButton>
+                    </BackLink>
+                </Card>
+            </CSSTransition>
         );
     }
 }

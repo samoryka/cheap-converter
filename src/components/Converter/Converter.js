@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import CSSTransition from 'react-transition-group/CSSTransition';
 
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
-
 
 const massUnits = require('../../resources/data/massUnits.json').units;
 const volumeUnits = require('../../resources/data/volumeUnits.json').units;
@@ -23,6 +23,10 @@ align-items: center;
 
 class Converter extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = { show: false };
+  }
   componentWillMount() {
 
     let computedMassToValueCoefficient = computeMassToVolumeCoefficient(massUnits[0].coefficientToGram,
@@ -39,6 +43,14 @@ class Converter extends Component {
       volumeValue: computedVolume,
       massToVolumeCoefficient: computedMassToValueCoefficient
     };
+  }
+
+  componentDidMount() {
+    this.setState({ show: true });
+  }
+
+  componentWillUnmount() {
+    this.setState({ show: false });
   }
 
   handleVolumeChanged(value) {
@@ -94,29 +106,34 @@ class Converter extends Component {
 
   render() {
     return (
-      <div className="converter">
-        <FluidPicker
-          fluids = {fluids}
-          onFluidChange = {value => this.handleFluidChanged(value)} />
+      <CSSTransition
+          timeout={500}
+          classNames="fade"
+          in={this.state.show}>
+        <div className="converter">
+          <FluidPicker
+            fluids = {fluids}
+            onFluidChange = {value => this.handleFluidChanged(value)} />
 
-        <UnitPickersAligner>
-          <UnitPicker
-            valueType = 'mass'
-            value = {this.state.massValue}
-            unit = {this.state.massUnit}
-            units = {massUnits}
-            onValueChange = {value => this.handleMassChanged(value)}
-            onUnitChange = {value => this.handleMassUnitChanged(value)}/>
-          ≡
-          <UnitPicker
-            valueType = 'volume'
-            value = {this.state.volumeValue}
-            unit = {this.state.volumeUnit}
-            units = {volumeUnits}
-            onValueChange = {value => this.handleVolumeChanged(value)}
-            onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
-        </UnitPickersAligner>
-      </div>                
+          <UnitPickersAligner>
+            <UnitPicker
+              valueType = 'mass'
+              value = {this.state.massValue}
+              unit = {this.state.massUnit}
+              units = {massUnits}
+              onValueChange = {value => this.handleMassChanged(value)}
+              onUnitChange = {value => this.handleMassUnitChanged(value)}/>
+            ≡
+            <UnitPicker
+              valueType = 'volume'
+              value = {this.state.volumeValue}
+              unit = {this.state.volumeUnit}
+              units = {volumeUnits}
+              onValueChange = {value => this.handleVolumeChanged(value)}
+              onUnitChange = {value => this.handleVolumeUnitChanged(value)}/>
+          </UnitPickersAligner>
+        </div>  
+      </CSSTransition>              
     );
   }
 }

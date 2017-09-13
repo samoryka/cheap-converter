@@ -10,7 +10,7 @@ import Converter from './Converter/Converter';
 import Footer from './Footer';
 import About from './About';
 
-
+import '../resources/styles/animations.css';
 const themes = require('../resources/configuration/themes.json').themes;
 
 const MetaWrapper = styled.div`
@@ -76,6 +76,7 @@ class App extends Component {
                 </Helmet>
 
                 <Router>
+                
                     <ThemeProvider theme={this.state.theme}>
                         <Background>
                             <Header />
@@ -84,7 +85,7 @@ class App extends Component {
                                 <Route exact = {true} path = {process.env.PUBLIC_URL + '/'} component = {Converter} />
                                 <Route exact = {true} path = {process.env.PUBLIC_URL + '/about'} component = {About}/>
                             </ContentContainer>
-
+                            
                             <Footer 
                                 pickedTheme = {this.state.theme}
                                 themes = {themes}
