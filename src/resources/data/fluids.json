@@ -2,17 +2,20 @@
     "fluids":
     [
         {
-            "name": "Flour",
-            "gramToLiterCoefficient":0.00182 },
-        {
-            "name": "Sugar",
-            "gramToLiterCoefficient":0.00112 },
-        {
             "name": "Butter",
             "gramToLiterCoefficient":0.00116 },
         {
+            "name": "Flour",
+            "gramToLiterCoefficient":0.00182 },
+        {
             "name": "Milk",
             "gramToLiterCoefficient":0.00097 },
+        {
+            "name": "Oil",
+            "gramToLiterCoefficient":0.00109 },
+        {
+            "name": "Sugar",
+            "gramToLiterCoefficient":0.00112 },
         {
             "name": "Water",
             "gramToLiterCoefficient":0.001 }   
