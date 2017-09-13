@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import CSSTransition from 'react-transition-group/CSSTransition';
 
+import {computeMassToVolumeCoefficient, convertValue} from '../../ConversionLogic'
 import UnitPicker from './UnitPicker';
 import FluidPicker from './FluidPicker';
 
@@ -136,26 +137,6 @@ class Converter extends Component {
       </CSSTransition>              
     );
   }
-}
-
-function computeMassToVolumeCoefficient(coefficientToGram, coefficientToLiter, fluidCoefficient) {
-  return (coefficientToGram / coefficientToLiter) * fluidCoefficient;
-}
-
-function convertValue(value, valueType, massToVolumeCoefficient) {
-  if(typeof(value) !== undefined)
-    {
-      switch(valueType){
-        case 'mass':
-          return +(value * massToVolumeCoefficient).toFixed(2);
-        case 'volume':
-          return +(value * (1/massToVolumeCoefficient)).toFixed(2);
-        default:
-          return +(value * massToVolumeCoefficient).toFixed(2);
-      }
-    }
-  else
-    return 0;
 }
 
 export default Converter;
