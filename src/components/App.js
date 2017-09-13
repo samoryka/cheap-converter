@@ -13,6 +13,7 @@ import About from './About';
 import '../resources/styles/animations.css';
 const themes = require('../resources/configuration/themes.json').themes;
 
+// Div wrapping the whole application. It is needed to render correctly and properly manipulate meta-data with Helmet 
 const MetaWrapper = styled.div`
 width: 100%;
 height:100%;
@@ -76,7 +77,6 @@ class App extends Component {
                 </Helmet>
 
                 <Router>
-                
                     <ThemeProvider theme={this.state.theme}>
                         <Background>
                             <Header />
