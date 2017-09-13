@@ -12,6 +12,14 @@
         {
              "name":"Kilogram",
             "symbol":"kg",
-            "coefficientToGram":1000 }
-    ]
+            "coefficientToGram":1000 },
+        {
+            "name":"Ounce",
+            "symbol":"oz",
+            "coefficientToGram":30 },
+        {
+            "name":"Pound",
+            "symbol":"lb",
+            "coefficientToGram":450  }
+]
 }

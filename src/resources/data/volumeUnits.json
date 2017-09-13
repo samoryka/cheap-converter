@@ -6,12 +6,28 @@
             "symbol":"cl",
             "coefficientToLiter":0.01 },
         {
+            "name": "Mililiter",
+            "symbol":"ml",
+            "coefficientToLiter":0.001 },
+        {
             "name": "Liter",
             "symbol":"l",
             "coefficientToLiter":1 },
         {
-            "name": "Mililiter",
-            "symbol":"ml",
-            "coefficientToLiter":0.001 }
+            "name": "Teaspoon",
+            "symbol": "tsp",
+            "coefficientToLiter": 0.005},
+        {
+            "name": "Tablespoon",
+            "symbol": "tbsp",
+            "coefficientToLiter": 0.015},
+        {
+            "name": "Ounce",
+            "symbol": "fl oz",
+            "coefficientToLiter": 0.030},
+        {
+            "name": "Cup",
+            "symbol": "cup",
+            "coefficientToLiter": 0.240}
     ]
 }
